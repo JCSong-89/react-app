@@ -48,7 +48,7 @@ const UpdateMusic = (props) => {
 
     axios
       .request({
-        url: `/renewal/${musicHandler.state.id}`,
+        url: `/renewal/${filterData.id}`,
         method: "post",
         baseURL:
           "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000",
@@ -82,7 +82,7 @@ const UpdateMusic = (props) => {
     bodyFormData.append("music", fileInput.current.files[0]);
     axios
       .request({
-        url: `/uploading/${musicHandler.state.id}`,
+        url: `/uploading/${filterData.id}`,
         method: "post",
         baseURL:
           "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000",
