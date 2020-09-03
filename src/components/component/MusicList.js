@@ -11,20 +11,14 @@ import TableCell from "@material-ui/core/TableCell";
 //MiddleWare
 import { musicHandler } from "../../redux/Home.readux";
 
-// Componenet
-import { MODAL } from "../index";
-
 // Styled-Component
-import { BUTTOIN, HEADER_COLUMN } from "../../styles/index";
+import { BUTTOIN } from "../../styles/index";
 
 const MusicList = ({ data }) => {
   const [modalVisible, setModalVisible] = useState(false);
-
+  musicHandler.state = data;
   const openModal = () => {
-    setModalVisible(true);
-  };
-  const closeModal = () => {
-    setModalVisible(false);
+    setModalVisible(!modalVisible);
   };
 
   return (
@@ -38,7 +32,9 @@ const MusicList = ({ data }) => {
             <TableCell>앨범</TableCell>
             <TableCell>등록자</TableCell>
             <TableCell>등록일</TableCell>
-            <TableCell></TableCell>
+            <TableCell>
+              <BUTTOIN onClick={openModal}>상세조회</BUTTOIN>
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,11 +57,10 @@ const MusicList = ({ data }) => {
                   <div>가수: {music.artist}</div>
                 </TableCell>
               )}
-              <BUTTOIN onClick={openModal}>조회</BUTTOIN>
               <BUTTOIN
                 as={Link}
-                to={"/uploading"}
-                musicHandler={(musicHandler.state = music)}
+                to={`/uploading/${music.id}`}
+                musicHandler={musicHandler.state}
               >
                 수정
               </BUTTOIN>

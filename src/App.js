@@ -40,7 +40,7 @@ export default () => {
           <Route exact path="/home" render={authGuard(Home)} />
           <Route path="/login" render={loginGuard(Login)} />
         </Switch>
-        <Route path="/uploading" render={authGuard(UpdateMusic)} />
+        <Route path="/uploading/:id" render={authGuard(UpdateMusic)} />
       </Router>
     </ThemeProvider>
   );

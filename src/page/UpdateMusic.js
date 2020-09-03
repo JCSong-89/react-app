@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import { Link, withRouter } from "react-router-dom";
 import { checkSearch, musicHandler } from "../redux/Home.readux";
+import { connect } from "react-redux";
 
 //MiddleWare
 import useInput from "../Hooks/useInput";
@@ -16,12 +17,23 @@ import useInput from "../Hooks/useInput";
 // Styled-Component
 import { INPUT, BUTTOIN, HEADER_COLUMN } from "../styles/index";
 
-const UpdateMusic = () => {
-  const [updateFile, setUpdateFile] = useState(musicHandler.state.file);
+const UpdateMusic = (props) => {
+  const musicId = props.match.params;
+  const data = [musicHandler.state];
+
+  let filterData = {};
+
+  data[0].forEach((element) => {
+    if (element.id == musicId.id) {
+      filterData = element;
+    }
+  });
+
+  const [updateFile, setUpdateFile] = useState(filterData.file);
   const [updateInfo, setUpdateInfo] = useState({
-    artist: musicHandler.state.artist,
-    name: musicHandler.state.name,
-    album: musicHandler.state.album,
+    artist: filterData.artist,
+    name: filterData.name,
+    album: filterData.album,
   });
   const fileInput = useRef();
   const artist = useInput(updateInfo.artist);
@@ -148,4 +160,13 @@ const UpdateMusic = () => {
   );
 };
 
-export default withRouter(UpdateMusic);
+export default withRouter(
+  connect(
+    (state) => ({
+      state,
+    }),
+    (dispatch) => ({
+      musicHandler: () => dispatch(musicHandler()),
+    })
+  )(UpdateMusic)
+);
