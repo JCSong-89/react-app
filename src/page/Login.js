@@ -33,16 +33,19 @@ export default () => {
 
   //Handler
   const loginHandler = () => {
-    fetch(`http://localhost:8000/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: id.value,
-        password: password.value,
-      }),
-    }).then((res) => {
+    fetch(
+      `http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: id.value,
+          password: password.value,
+        }),
+      }
+    ).then((res) => {
       if (res.status === 200) {
         res.json().then((res) => {
           localStorage.setItem("Authentication", res.Authentication);
@@ -58,17 +61,20 @@ export default () => {
   };
 
   const registerHandler = () => {
-    fetch(`http://localhost:8000/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: id.value,
-        name: name.value,
-        password: rePassword.value,
-      }),
-    }).then((res) => {
+    fetch(
+      `http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: id.value,
+          name: name.value,
+          password: rePassword.value,
+        }),
+      }
+    ).then((res) => {
       if (res.status === 201) {
         alert("회원가입에 성공하였습니다.");
         setAction("logIn");

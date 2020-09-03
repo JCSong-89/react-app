@@ -43,7 +43,8 @@ const Uploader = (newMusic) => {
       .request({
         url: `uploading/${data.username}/${data.id}`,
         method: "post",
-        baseURL: "http://localhost:8000",
+        baseURL:
+          "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000",
         headers: { "Content-Type": "multipart/form-data" },
         data: bodyFormData,
       })

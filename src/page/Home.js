@@ -51,16 +51,20 @@ const Home = () => {
     checkMusic.state = false;
     setIsLoading(true);
     const qeury = `/search?music=${search.value}`;
-    axios.get(`http://localhost:8000/${qeury}`).then((res) => {
-      if (res.data.message) {
-        setMessage(res.data.message);
-        setIsLoading(false);
-      } else {
-        setSearchList(res.data);
-        checkSearch.state = true;
-        setIsLoading(false);
-      }
-    });
+    axios
+      .get(
+        `http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/${qeury}`
+      )
+      .then((res) => {
+        if (res.data.message) {
+          setMessage(res.data.message);
+          setIsLoading(false);
+        } else {
+          setSearchList(res.data);
+          checkSearch.state = true;
+          setIsLoading(false);
+        }
+      });
   };
 
   const onProfileSubmit = (e) => {
@@ -74,7 +78,8 @@ const Home = () => {
       .request({
         url: "/profile",
         method: "get",
-        baseURL: "http://localhost:8000/",
+        baseURL:
+          "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/",
         headers: { Authentication: localStorage.getItem("Authentication") },
       })
       .then((res) => {
@@ -100,7 +105,8 @@ const Home = () => {
       .request({
         url: "/uploading",
         method: "post",
-        baseURL: "http://localhost:8000/",
+        baseURL:
+          "hhttp://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/",
         headers: { Authentication: localStorage.getItem("Authentication") },
       })
       .then((res) => {

@@ -38,7 +38,8 @@ const UpdateMusic = () => {
       .request({
         url: `/renewal/${musicHandler.state.id}`,
         method: "post",
-        baseURL: "http://localhost:8000",
+        baseURL:
+          "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000",
         data: {
           artist: artist.value,
           name: name.value,
@@ -71,7 +72,8 @@ const UpdateMusic = () => {
       .request({
         url: `/uploading/${musicHandler.state.id}`,
         method: "post",
-        baseURL: "http://localhost:8000",
+        baseURL:
+          "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000",
         headers: {
           "Content-Type": "multipart/form-data",
           Authentication: localStorage.getItem("Authentication"),
