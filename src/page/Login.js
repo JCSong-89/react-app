@@ -32,7 +32,8 @@ export default () => {
   const history = useHistory();
 
   //Handler
-  const loginHandler = () => {
+  const loginHandler = (e) => {
+    e.preventDefault();
     fetch(
       `http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/login`,
       {
@@ -52,7 +53,11 @@ export default () => {
           alert("로그인에 성공하였습니다.");
           history.push("/login");
         });
-      } else if (res.status === 400 || res.status === 403) {
+      } else if (
+        res.status === 400 ||
+        res.status === 403 ||
+        res.status === 401
+      ) {
         alert("비밀번호 혹은 ID를 다시 확인해주세요");
       } else if (res.status === 500) {
         alert("일시적인 오류가 발생하였습니다.");
@@ -60,7 +65,8 @@ export default () => {
     });
   };
 
-  const registerHandler = () => {
+  const registerHandler = (e) => {
+    e.preventDefault();
     fetch(
       `http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/register`,
       {
