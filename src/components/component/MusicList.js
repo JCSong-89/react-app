@@ -59,6 +59,7 @@ const MusicList = ({ data }) => {
                   onClose={closeModal}
                 >
                   <HEADER_COLUMN>등록ID: {music.id}</HEADER_COLUMN>
+                  {console.log(music.id)}
                   <HEADER_COLUMN>등록자: {music.username}</HEADER_COLUMN>
                   <HEADER_COLUMN>파일명: {music.file}</HEADER_COLUMN>
                   <HEADER_COLUMN>파일크기: {music.size}MB</HEADER_COLUMN>
@@ -67,11 +68,7 @@ const MusicList = ({ data }) => {
                   <HEADER_COLUMN>가수: {music.artist}</HEADER_COLUMN>
                 </MODAL>
               )}
-              <BUTTOIN
-                as={Link}
-                to={"/uploading"}
-                musicHandler={(musicHandler.state = music)}
-              >
+              <BUTTOIN as={Link} to={"/uploading"} musicHandler={music}>
                 수정
               </BUTTOIN>
             </TableRow>

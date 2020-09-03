@@ -98,27 +98,8 @@ const Home = () => {
     e.preventDefault();
     checkSearch.state = false;
     checkProfile.state = false;
-    checknewMusic.state = false;
+    checknewMusic.state = true;
     checkMusic.state = false;
-    setIsLoading(true);
-    axios
-      .request({
-        url: "/uploading",
-        method: "post",
-        baseURL:
-          "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000",
-        headers: { Authentication: localStorage.getItem("Authentication") },
-      })
-      .then((res) => {
-        if (res.data.message) {
-          setMessage(res.data.message);
-          setIsLoading(false);
-        } else {
-          setNewMusic(res);
-          checknewMusic.state = true;
-          setIsLoading(false);
-        }
-      });
   };
 
   const loginOutHandler = () => {
