@@ -50,7 +50,7 @@ const Home = () => {
     checknewMusic.state = false;
     checkMusic.state = false;
     setIsLoading(true);
-    const qeury = `/search?music=${search.value}`;
+    const qeury = `search?music=${search.value}`;
     axios
       .get(
         `http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/${qeury}`
@@ -79,7 +79,7 @@ const Home = () => {
         url: "/profile",
         method: "get",
         baseURL:
-          "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/",
+          "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000",
         headers: { Authentication: localStorage.getItem("Authentication") },
       })
       .then((res) => {
@@ -106,7 +106,7 @@ const Home = () => {
         url: "/uploading",
         method: "post",
         baseURL:
-          "hhttp://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000/",
+          "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000",
         headers: { Authentication: localStorage.getItem("Authentication") },
       })
       .then((res) => {

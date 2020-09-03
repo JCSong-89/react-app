@@ -41,7 +41,7 @@ const Uploader = (newMusic) => {
     console.log(bodyFormData);
     axios
       .request({
-        url: `uploading/${data.username}/${data.id}`,
+        url: `/uploading/${data.username}/${data.id}`,
         method: "post",
         baseURL:
           "http://ec2-52-78-177-57.ap-northeast-2.compute.amazonaws.com:8000",
