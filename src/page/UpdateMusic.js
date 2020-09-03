@@ -16,12 +16,12 @@ import useInput from "../Hooks/useInput";
 // Styled-Component
 import { INPUT, BUTTOIN, HEADER_COLUMN } from "../styles/index";
 
-const UpdateMusic = ({ music }) => {
-  const [updateFile, setUpdateFile] = useState(music.file);
+const UpdateMusic = () => {
+  const [updateFile, setUpdateFile] = useState(musicHandler.state.file);
   const [updateInfo, setUpdateInfo] = useState({
-    artist: music.artist,
-    name: music.name,
-    album: music.album,
+    artist: musicHandler.state.artist,
+    name: musicHandler.state.name,
+    album: musicHandler.state.album,
   });
   const fileInput = useRef();
   const artist = useInput(updateInfo.artist);

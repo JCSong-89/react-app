@@ -50,25 +50,23 @@ const MusicList = ({ data }) => {
               <TableCell>{music.album}</TableCell>
               <TableCell>{music.username}</TableCell>
               <TableCell>{music.createdAt}</TableCell>
-              <BUTTOIN onClick={openModal}>조회</BUTTOIN>
               {modalVisible && (
-                <MODAL
-                  visible={modalVisible}
-                  closable={true}
-                  maskClosable={true}
-                  onClose={closeModal}
-                >
-                  <HEADER_COLUMN>등록ID: {music.id}</HEADER_COLUMN>
-                  {console.log(music.id)}
-                  <HEADER_COLUMN>등록자: {music.username}</HEADER_COLUMN>
-                  <HEADER_COLUMN>파일명: {music.file}</HEADER_COLUMN>
-                  <HEADER_COLUMN>파일크기: {music.size}MB</HEADER_COLUMN>
-                  <HEADER_COLUMN>노래제목: {music.name}</HEADER_COLUMN>
-                  <HEADER_COLUMN>앨범명: {music.album}</HEADER_COLUMN>
-                  <HEADER_COLUMN>가수: {music.artist}</HEADER_COLUMN>
-                </MODAL>
+                <TableCell>
+                  <div>등록ID: {music.id}</div>
+                  <div>등록자: {music.username}</div>
+                  <div>파일명: {music.file}</div>
+                  <div>파일크기: {music.size}MB</div>
+                  <div>노래제목: {music.name}</div>
+                  <div>앨범명: {music.album}</div>
+                  <div>가수: {music.artist}</div>
+                </TableCell>
               )}
-              <BUTTOIN as={Link} to={"/uploading"} musicHandler={music}>
+              <BUTTOIN onClick={openModal}>조회</BUTTOIN>
+              <BUTTOIN
+                as={Link}
+                to={"/uploading"}
+                musicHandler={(musicHandler.state = music)}
+              >
                 수정
               </BUTTOIN>
             </TableRow>
