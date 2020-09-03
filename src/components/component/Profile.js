@@ -1,5 +1,14 @@
+//Module
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link, withRouter } from "react-router-dom";
+
+//MiddleWare
+import { checkProfile } from "../../redux/Home.readux";
+import useInput from "../../Hooks/useInput";
+import useLoginInput from "../../Hooks/useLoginInput";
+
+// Styled-Component
 import {
   CENTER_COLUMN,
   HEADER_COLUMN,
@@ -8,25 +17,23 @@ import {
   DARK_BUTTON,
   RED_COLUMN,
 } from "../../styles/index";
-import useInput from "../../Hooks/useInput";
-import { Link, withRouter } from "react-router-dom";
-import { checkProfile } from "../../redux/Home.readux";
 
 const Profile = ({ userProfile }) => {
-  const password = useInput(false);
+  const password = useLoginInput(false);
   const rePassword = useInput(false);
   const name = useInput(userProfile.data.name);
   const [completed, setCompleted] = useState(true);
   const [checkPassword, setCheckPassword] = useState(true);
   const [hover, sethover] = useState(false);
 
+  //handler
   const onUpdateSubmit = (e) => {
     e.preventDefault();
     axios
       .request({
         url: `/profile`,
         method: "post",
-        baseURL: "http://localhost:4000/",
+        baseURL: "http://localhost:8000",
         headers: { Authentication: localStorage.getItem("Authentication") },
         data: {
           password: password.value,
@@ -44,7 +51,8 @@ const Profile = ({ userProfile }) => {
   };
 
   const onPasswordHandler = () => {
-    if (password.value === rePassword.value) setCheckPassword(true);
+    if (password.value === rePassword.value && password.value.length >= 5)
+      setCheckPassword(true);
     if (password.value !== rePassword.value) setCheckPassword(false);
   };
 
@@ -59,6 +67,7 @@ const Profile = ({ userProfile }) => {
   useEffect(() => {
     onPasswordHandler();
   }, [password, rePassword]);
+
   return (
     <>
       {completed ? (

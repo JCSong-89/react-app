@@ -6,8 +6,8 @@ export default (defaultValue) => {
     const {
       target: { value },
     } = e;
-    setValue(value);
+    const newValue = value.replace(/[^a-zA-Z0-9]/g, "");
+    setValue(newValue);
   };
-
   return { value, onChange };
 };

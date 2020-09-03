@@ -17,6 +17,10 @@ import DarkButton from "./styledComponents/DarkButton";
 import RedHeaderColumn from "./styledComponents/RedHeaderColumn";
 import ModalButton from "./styledComponents/ModalButton";
 import ModalColumn from "./styledComponents/ModalComlum";
+import PopUp from "./styledComponents/PopUp";
+import ModalInner from "./styledComponents/ModalInner";
+import ModalOverlay from "./styledComponents/ModalOverlay";
+import ModalWrapper from "./styledComponents/ModalWrapper";
 
 export const BOX = Box;
 export const BUTTOIN = Button;
@@ -37,3 +41,7 @@ export const DARK_BUTTON = DarkButton;
 export const RED_COLUMN = RedHeaderColumn;
 export const MODAL_BUTTON = ModalButton;
 export const MODAL_COLUMN = ModalColumn;
+export const POP_UP = PopUp;
+export const MODAL_OVERLAY = ModalOverlay;
+export const MODAL_INNER = ModalInner;
+export const MODAL_WRAPPER = ModalWrapper;

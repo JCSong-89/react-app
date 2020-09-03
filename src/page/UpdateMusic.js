@@ -24,13 +24,13 @@ const UpdateMusic = () => {
     album: musicHandler.state.album,
   });
   const fileInput = useRef();
-
-  const artist = useInput();
-  const album = useInput();
-  const name = useInput();
+  const artist = useInput(updateInfo.artist);
+  const album = useInput(updateInfo.album);
+  const name = useInput(updateInfo.name);
 
   let bodyFormData = new FormData();
 
+  // Handler
   const onInfoSumbit = (e) => {
     e.preventDefault();
 
@@ -38,19 +38,28 @@ const UpdateMusic = () => {
       .request({
         url: `/renewal/${musicHandler.state.id}`,
         method: "post",
-        baseURL: "http://localhost:4000/",
+        baseURL: "http://localhost:8000",
         data: {
           artist: artist.value,
           name: name.value,
           album: album.value,
         },
+        headers: { Authentication: localStorage.getItem("Authentication") },
       })
       .then((res) => {
-        if (res.status !== 200) {
+        if (res.status === 400) {
           alert("정보 변경 실패.");
-        } else {
+        }
+        if (res.status === 200) {
           setUpdateInfo(res.data);
           alert("정보 변경 완료");
+        }
+      })
+      .catch((err) => {
+        if (err.message === "Request failed with status code 401") {
+          alert("해당 등록자가 아닙니다.");
+        } else {
+          alert("에러 발생");
         }
       });
   };
@@ -62,18 +71,26 @@ const UpdateMusic = () => {
       .request({
         url: `/uploading/${musicHandler.state.id}`,
         method: "post",
-        baseURL: "http://localhost:4000/",
-        headers: { "Content-Type": "multipart/form-data" },
+        baseURL: "http://localhost:8000",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authentication: localStorage.getItem("Authentication"),
+        },
         data: bodyFormData,
       })
       .then((res) => {
-        if (res.status !== 200) {
-          alert("파일 변경 실패.");
-        } else {
-          console.log(res);
-          console.log(res.data.file);
+        if (res.status === 400) {
+          alert("정보 변경 실패.");
+        } else if (res.status === 200) {
           setUpdateFile(res.data.file);
           alert("파일 변경 완료");
+        }
+      })
+      .catch((err) => {
+        if (err.message === "Request failed with status code 401") {
+          alert("해당 등록자가 아닙니다.");
+        } else {
+          alert("에러 발생");
         }
       });
   };

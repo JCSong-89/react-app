@@ -5,12 +5,14 @@ const CHECK_PROFILE = "checkProfile";
 const CHECK_NEW_MUSIC = "checknewMusic";
 const CHECK_MUSIC = "checkMusic";
 const MUSIC_DATA = "musicData";
+const LOGIN_STATE = "loginData";
 
 export const checkSearch = createAction(CHECK_SEARCH);
 export const checkProfile = createAction(CHECK_PROFILE);
 export const checknewMusic = createAction(CHECK_NEW_MUSIC);
 export const checkMusic = createAction(CHECK_MUSIC);
 export const musicData = createAction(MUSIC_DATA);
+export const loginState = createAction(LOGIN_STATE);
 
 const initState = false;
 const musicInitState = {};

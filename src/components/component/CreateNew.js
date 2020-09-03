@@ -43,7 +43,7 @@ const Uploader = (newMusic) => {
       .request({
         url: `uploading/${data.username}/${data.id}`,
         method: "post",
-        baseURL: "http://localhost:4000/",
+        baseURL: "http://localhost:8000",
         headers: { "Content-Type": "multipart/form-data" },
         data: bodyFormData,
       })
@@ -80,13 +80,18 @@ const Uploader = (newMusic) => {
           </HEADER_COLUMN>
         </form>
       ) : (
-        <BUTTOIN
-          as={Link}
-          to={"/"}
-          checknewMusic={(checknewMusic.state = false)}
-        >
-          홈으로
-        </BUTTOIN>
+        <>
+          <CENTER_COLUMN />
+          <HEADER_COLUMN>
+            <BUTTOIN
+              as={Link}
+              to={"/"}
+              checknewMusic={(checknewMusic.state = false)}
+            >
+              홈으로
+            </BUTTOIN>
+          </HEADER_COLUMN>
+        </>
       )}
     </>
   );

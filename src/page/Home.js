@@ -1,7 +1,8 @@
 //Module
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 
 //MiddleWare
 import useInput from "../Hooks/useInput";
@@ -12,6 +13,7 @@ import {
   checkMusic,
   musicHandler,
 } from "../redux/Home.readux";
+
 // Componenet
 import { UPLOADER, PROFILE, MUSIC_LIST } from "../components/index";
 
@@ -34,11 +36,13 @@ const Home = () => {
   const search = useInput("");
   const [isLoading, setIsLoading] = useState(false);
 
+  //state
   let checkSearchValue = checkSearch.state;
   let checkProfileValue = checkProfile.state;
   let checkNewMusicValue = checknewMusic.state;
   let checkMusicValue = checkMusic.state;
 
+  //Handler
   const onSearchSubmit = (e) => {
     e.preventDefault();
     checkSearch.state = false;
@@ -47,7 +51,7 @@ const Home = () => {
     checkMusic.state = false;
     setIsLoading(true);
     const qeury = `/search?music=${search.value}`;
-    axios.get(`http://localhost:4000${qeury}`).then((res) => {
+    axios.get(`http://localhost:8000/${qeury}`).then((res) => {
       if (res.data.message) {
         setMessage(res.data.message);
         setIsLoading(false);
@@ -70,7 +74,7 @@ const Home = () => {
       .request({
         url: "/profile",
         method: "get",
-        baseURL: "http://localhost:4000/",
+        baseURL: "http://localhost:8000/",
         headers: { Authentication: localStorage.getItem("Authentication") },
       })
       .then((res) => {
@@ -96,7 +100,7 @@ const Home = () => {
       .request({
         url: "/uploading",
         method: "post",
-        baseURL: "http://localhost:4000/",
+        baseURL: "http://localhost:8000/",
         headers: { Authentication: localStorage.getItem("Authentication") },
       })
       .then((res) => {
@@ -109,6 +113,14 @@ const Home = () => {
           setIsLoading(false);
         }
       });
+  };
+
+  const loginOutHandler = () => {
+    checkSearch.state = false;
+    checkProfile.state = false;
+    checknewMusic.state = false;
+    checkMusic.state = false;
+    localStorage.clear();
   };
 
   useEffect(() => {}, [message]);
@@ -127,6 +139,9 @@ const Home = () => {
             </form>
           </HEADER_COLUMN>
           <HEADER_LINK onClick={onProfileSubmit}>프로필</HEADER_LINK>
+          <HEADER_LINK as={Link} to={"/login"} onClick={loginOutHandler}>
+            로그아웃
+          </HEADER_LINK>
         </HEADER_WRAPPER>
       </HEADER>
       {!checkSearchValue &&
@@ -164,15 +179,17 @@ const Home = () => {
   );
 };
 
-export default connect(
-  (state) => ({
-    state,
-  }),
-  (dispatch) => ({
-    checkSearch: () => dispatch(checkSearch()),
-    checknewMusic: () => dispatch(checknewMusic()),
-    checkMusic: () => dispatch(checkMusic()),
-    checkProfile: () => dispatch(checkProfile()),
-    checkProfile: () => dispatch(checkProfile()),
-  })
-)(Home);
+export default withRouter(
+  connect(
+    (state) => ({
+      state,
+    }),
+    (dispatch) => ({
+      checkSearch: () => dispatch(checkSearch()),
+      checknewMusic: () => dispatch(checknewMusic()),
+      checkMusic: () => dispatch(checkMusic()),
+      checkProfile: () => dispatch(checkProfile()),
+      musicHandler: () => dispatch(musicHandler()),
+    })
+  )(Home)
+);
